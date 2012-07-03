@@ -1,0 +1,14 @@
+Saldos<BR><BR>
+{% for p in creditos %}
+	{{ p.nome }} | R$ {{ p.credito }}<BR>
+{% endfor %}
+
+<HR />
+
+{% for g in gastos %}
+	{% ifchanged g.pessoa %}
+		<BR>{{ g.pessoa.nome }}<BR>
+	{% endifchanged %}
+	{{ g.gasto.dia|date:"d/m/Y" }} - {{ g.pessoa.nome }} - {{ g.valor }}<BR>
+
+{% endfor %}

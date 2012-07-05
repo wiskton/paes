@@ -12,6 +12,20 @@ class Pessoa(models.Model):
 	nome = models.CharField(max_length=255)
 	credito = models.DecimalField(max_digits=4,decimal_places=2)
 
+	def pagar(self):
+		gastos = GastosPessoa.objects.filter(pessoa=self,pago=False)
+		total = 0
+		for i in gastos:
+
+			quantidade = i.quantidade
+			total_quantidade = i.gasto.quantidade
+			total_valor = i.gasto.valor
+			valor = (quantidade * (total_valor/total_quantidade))
+
+			total += valor
+
+		return total
+
 	def __unicode__(self):
 		return self.nome
 

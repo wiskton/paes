@@ -1,14 +1,22 @@
 Saldos<BR><BR>
+<table width="500" border="1">
+	<tr>
+		<td>Nome</td>
+		<td>Créditos</td>
+		<td>Total do Mês</td>
+	</tr>
 {% for p in creditos %}
-	{{ p.nome }} | R$ {{ p.credito }}<BR>
+	<tr>
+		<td>{{ p.nome }}</td>
+		<td>R$ {{ p.credito }}</td>
+		<td>R$ {{ p.pagar }}</td>
+	</tr>
 {% endfor %}
-
-<HR />
+</table>
 
 {% for g in gastos %}
 	{% ifchanged g.pessoa %}
 		<BR>{{ g.pessoa.nome }}<BR>
 	{% endifchanged %}
-	{{ g.gasto.dia|date:"d/m/Y" }} - {{ g.pessoa.nome }} - {{ g.valor }}<BR>
-
+	{{ g.gasto.dia|date:"d/m/Y" }} - {{ g.pessoa.nome }} | quantidade de pães: {{ g.quantidade }} | valor: R$ {{ g.valor }}<BR>
 {% endfor %}

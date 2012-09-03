@@ -5,6 +5,9 @@ class Gasto(models.Model):
 	valor = models.DecimalField(max_digits=4,decimal_places=2)
 	quantidade = models.IntegerField()
 
+	class Meta:
+		ordering = ['dia']
+
 	def __unicode__(self):
 		return str(self.dia)
 
@@ -12,7 +15,7 @@ class Pessoa(models.Model):
 	nome = models.CharField(max_length=255)
 	credito = models.DecimalField(max_digits=4,decimal_places=2)
 
-	def pagar(self):
+	def total_pago(self):
 		gastos = GastosPessoa.objects.filter(pessoa=self,pago=False)
 		total = 0
 		for i in gastos:
@@ -24,7 +27,23 @@ class Pessoa(models.Model):
 
 			total += valor
 
-		return total
+		return '%.2f' % total
+
+	def falta_pagar(self):
+		pessoa = self
+		gastos = GastosPessoa.objects.filter(pessoa=pessoa,pago=False)
+		total = 0
+		for i in gastos:
+
+			quantidade = i.quantidade
+			total_quantidade = i.gasto.quantidade
+			total_valor = i.gasto.valor
+			valor = (quantidade * (total_valor/total_quantidade))
+
+			total += valor
+
+		total =  self.credito - total
+		return '%.2f' % total
 
 	def __unicode__(self):
 		return self.nome
@@ -41,7 +60,7 @@ class GastosPessoa(models.Model):
 		total_quantidade = self.gasto.quantidade
 		total_valor = self.gasto.valor
 		valor = (quantidade * (total_valor/total_quantidade))
-		return valor
+		return '%.2f' % valor
 	valor.is_safe = True
 	valor.allow_tags = True
 	valor.short_description = u'Valor'

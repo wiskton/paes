@@ -6,11 +6,11 @@ from models import *
 def home(request):
 
 	creditos = Pessoa.objects.all()
-	gastos = GastosPessoa.objects.filter(pago=False).order_by('pessoa')
+	#gastos = GastosPessoa.objects.filter(pago=False).order_by('pessoa')
 
 	VARS = { 
-		'gastos': gastos,
-		'creditos': creditos,
+		#'gastos': gastos,
+	   	'creditos': creditos,
 	}
 	
 	return render_to_response('home.html', VARS, context_instance=RequestContext(request))

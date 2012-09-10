@@ -16,7 +16,7 @@ class GastosPessoAdmin(admin.ModelAdmin):
 		
 class GastosPessoaInline( admin.TabularInline ):
 	model = GastosPessoa
-	extra = 3
+	extra = 4
 
 class GastosAdmin(admin.ModelAdmin):
 	list_display = ('dia', 'valor', 'quantidade',)

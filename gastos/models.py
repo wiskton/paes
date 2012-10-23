@@ -42,7 +42,7 @@ class Pessoa(models.Model):
 
 			total += valor
 
-		total =  self.credito - total
+		total = total - self.credito
 		return '%.2f' % total
 
 	def __unicode__(self):

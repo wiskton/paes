@@ -8,6 +8,7 @@ class PessoaAdmin(admin.ModelAdmin):
 	list_display = ('nome', 'credito',)
 	save_on_top = True
 	list_filter = ('nome',)
+	# save_as = True
 	
 class GastosPessoAdmin(admin.ModelAdmin):
 	list_display = ('gasto', 'pessoa', 'quantidade', 'valor', 'pago' )

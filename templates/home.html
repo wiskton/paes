@@ -3,15 +3,13 @@ Saldos<BR><BR>
 	<tr>
 		<td>Nome</td>
 		<td>Créditos</td>
-		<td>Total do gasto</td>
 		<td>Falta pagar</td>
 	</tr>
 {% for p in creditos %}
 	<tr>
 		<td>{{ p.nome }}</td>
-		<td>R$ {{ p.credito }}</td>
-		<td>R$ {{ p.total_pago }}</td>
-		<td>R$ {{ p.falta_pagar }}</td>
+		<td>{{ p.credito_disponivel }}</td>
+		<td>{{ p.falta_pagar }}</td>
 	</tr>
 {% endfor %}
 </table>

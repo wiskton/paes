@@ -1,4 +1,6 @@
+# -*- coding: utf-8 -*-
 from django.db import models
+import decimal
 
 class Gasto(models.Model):
 	dia = models.DateField()
@@ -42,8 +44,32 @@ class Pessoa(models.Model):
 
 			total += valor
 
-		total = total - self.credito
-		return '%.2f' % total
+		if self.credito >= total:
+			return '-'
+		else:
+			total = total - self.credito
+		return 'R$ %.2f' % total
+
+	def credito_disponivel(self):
+		pessoa = self
+		gastos = GastosPessoa.objects.filter(pessoa=pessoa,pago=False)
+		total = 0
+		for i in gastos:
+
+			quantidade = i.quantidade
+			total_quantidade = i.gasto.quantidade
+			total_valor = i.gasto.valor
+			valor = (quantidade * (total_valor/total_quantidade))
+
+			total += valor
+
+		if total < self.credito:
+			total = self.credito - total
+			if total <= decimal.Decimal(0.009):
+				return 'Sem créditos'
+			return 'R$ %.2f' % total
+		else:
+			return 'Sem créditos'
 
 	def __unicode__(self):
 		return self.nome

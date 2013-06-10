@@ -4,18 +4,18 @@ import decimal
 
 class Gasto(models.Model):
 	dia = models.DateField()
-	valor = models.DecimalField(max_digits=4,decimal_places=2)
+	valor = models.DecimalField(max_digits=8,decimal_places=2)
 	quantidade = models.IntegerField()
 
 	class Meta:
-		ordering = ['dia']
+		ordering = ['-dia']
 
 	def __unicode__(self):
 		return str(self.dia)
 
 class Pessoa(models.Model):
 	nome = models.CharField(max_length=255)
-	credito = models.DecimalField(max_digits=4,decimal_places=2)
+	credito = models.DecimalField(max_digits=8,decimal_places=2)
 
 	def total_pago(self):
 		gastos = GastosPessoa.objects.filter(pessoa=self,pago=False)
@@ -80,7 +80,7 @@ class GastosPessoa(models.Model):
 	pessoa = models.ForeignKey(Pessoa)
 	quantidade = models.IntegerField()
 	pago = models.BooleanField(default=False)
-	
+
 	def valor(self):
 		quantidade = self.quantidade
 		total_quantidade = self.gasto.quantidade

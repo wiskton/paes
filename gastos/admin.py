@@ -9,12 +9,12 @@ class PessoaAdmin(admin.ModelAdmin):
 	save_on_top = True
 	list_filter = ('nome',)
 	# save_as = True
-	
+
 class GastosPessoAdmin(admin.ModelAdmin):
 	list_display = ('gasto', 'pessoa', 'quantidade', 'valor', 'pago' )
 	save_on_top = True
 	list_filter = ('gasto', 'pessoa','pago')
-		
+
 class GastosPessoaInline( admin.TabularInline ):
 	model = GastosPessoa
 	extra = 4
@@ -24,6 +24,7 @@ class GastosAdmin(admin.ModelAdmin):
 	save_on_top = True
 	list_filter = ('dia',)
 	date_hierarchy = 'dia'
+	list_per_page = 22
 
 	inlines = [ GastosPessoaInline, ]
 

@@ -13,7 +13,7 @@ class PessoaAdmin(admin.ModelAdmin):
 class GastosPessoAdmin(admin.ModelAdmin):
 	list_display = ('gasto', 'pessoa', 'quantidade', 'valor', 'pago' )
 	save_on_top = True
-	list_filter = ('gasto', 'pessoa','pago')
+	list_filter = ('pessoa', 'pago')
 
 class GastosPessoaInline( admin.TabularInline ):
 	model = GastosPessoa
